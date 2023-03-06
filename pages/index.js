@@ -8,22 +8,6 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState();
 
   const router = useRouter();
-  const friends = async () => {
-    console.log(router.query.token)
-    axios
-      .get(`https://kapi.kakao.com/v1/api/talk/friends`, {
-        headers: {
-          Authorization: `Bearer ${router.query.token}`,
-        },
-        // params: { limit: 3 }
-      })
-      .then((result) => {
-        console.log('result ', result);
-      })
-  }
-
-
-
 
   const getProfile = async () => {
     try {
@@ -31,6 +15,11 @@ const Profile = () => {
       let data = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
+
+      console.log(router.query.token)
+      let data2 = await axios.get(`/api/${router.query.token}`);
+
+      console.log(data2)
 
       // 사용자 정보 변수에 저장
       setUserId(data.id);
@@ -44,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     getProfile();
 
-    friends();
+    // friends();
   }, []);
   return (
     <div>
