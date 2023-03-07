@@ -17,7 +17,13 @@ const Profile = () => {
       });
 
       console.log(router.query.token)
-      let data2 = await axios.get(`/api/${router.query.token}`);
+
+      let data2 = await axios.get({
+        url: "https://kapi.kakao.com/v1/api/talk/friends",
+        headers: {
+          'Authorization': `Bearer ${router.query.token}`,
+        }
+      });
 
       console.log(data2)
 
@@ -31,15 +37,18 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    getProfile();
+    // getProfile();
 
     // friends();
   }, []);
+
   return (
     <div>
       <h2>{user_id}</h2>
       <h2>{nickName}</h2>
       <img src={profileImage}></img>
+
+
     </div>
   );
 };
